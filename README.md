@@ -4,6 +4,7 @@ A premium, mobile-first Afro House news platform built with React and Vite.
 
 ## Features
 - Glossy deep-black Lukulu editorial design system
+- Premium design polish with cinematic depth, glass navigation, refined cards and mobile luxury details
 - Home, stories, new music, charts, events, interviews, culture, about, search, account, submit news and Editorial Studio routes
 - Hash routing for GitHub Pages compatibility
 - Local demo auth and submission tracking prepared for Firebase / Google Cloud Identity Platform or Supabase Auth
