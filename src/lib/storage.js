@@ -1,0 +1,1 @@
+const prefix='lukulu:';export function readStore(key,fallback){try{return JSON.parse(localStorage.getItem(prefix+key))??fallback}catch{return fallback}}export function writeStore(key,value){localStorage.setItem(prefix+key,JSON.stringify(value));return value}export function uid(p='id'){return `${p}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2,8)}`}

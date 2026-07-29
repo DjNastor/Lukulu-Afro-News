@@ -1,0 +1,19 @@
+-- Lukulu Afro News relational schema draft for Postgres / Supabase / Cloud SQL.
+create table roles(id bigserial primary key,name text unique not null);
+create table profiles(id uuid primary key,email text unique not null,display_name text not null,role_id bigint references roles(id),verified_email boolean default false,verified_badge boolean default false,created_at timestamptz default now(),updated_at timestamptz default now());
+create table categories(id bigserial primary key,name text unique not null,slug text unique not null);
+create table tags(id bigserial primary key,name text unique not null,slug text unique not null);
+create table sources(id bigserial primary key,name text not null,url text not null,type text not null,trust_level text default 'manual-review',enabled boolean default false,last_checked_at timestamptz);
+create table articles(id uuid primary key,slug text unique not null,title text not null,dek text,body_html text,category_id bigint references categories(id),author_id uuid references profiles(id),status text not null default 'draft',source_id bigint references sources(id),external_url text,hero_image_url text,published_at timestamptz,updated_at timestamptz default now(),reading_minutes int default 1,view_count bigint default 0,is_breaking boolean default false,is_trending boolean default false,is_sponsored boolean default false,is_editor_pick boolean default false);
+create table article_tags(article_id uuid references articles(id) on delete cascade,tag_id bigint references tags(id) on delete cascade,primary key(article_id,tag_id));
+create table artists(id uuid primary key,slug text unique not null,name text not null,bio text,country text,genres text[],image_url text,verified boolean default false,links jsonb default '{}');
+create table labels(id uuid primary key,slug text unique not null,name text not null,description text,country text,logo_url text,website text,verified boolean default false,links jsonb default '{}');
+create table releases(id uuid primary key,artist_id uuid references artists(id),label_id uuid references labels(id),title text not null,genre text,release_date date,cover_url text,links jsonb default '{}');
+create table events(id uuid primary key,title text not null,city text,country text,venue text,event_date timestamptz,ticket_url text,summary text);
+create table imported_items(id uuid primary key,source_id bigint references sources(id),headline text not null,summary text,external_url text unique,category text,relevance_score int,quality_score int,duplicate_of uuid,imported_at timestamptz default now(),reviewed_at timestamptz,status text default 'draft');
+create table submissions(id uuid primary key,user_id uuid references profiles(id),type text not null,headline text not null,description text,press_release text,status text default 'submitted',metadata jsonb default '{}',created_at timestamptz default now(),updated_at timestamptz default now());
+create table submission_attachments(id uuid primary key,submission_id uuid references submissions(id) on delete cascade,file_url text not null,mime_type text,file_size bigint,permission_confirmed boolean default false);
+create table saved_stories(user_id uuid references profiles(id),article_id uuid references articles(id),created_at timestamptz default now(),primary key(user_id,article_id));
+create table newsletter_subscribers(id uuid primary key,email text unique not null,preferences jsonb default '{}',consent_at timestamptz default now());
+create table audit_logs(id bigserial primary key,actor_id uuid references profiles(id),action text not null,entity_type text not null,entity_id text,metadata jsonb default '{}',created_at timestamptz default now());
+create index articles_status_published_idx on articles(status,published_at desc);create index imported_items_status_idx on imported_items(status,relevance_score desc);create index submissions_user_status_idx on submissions(user_id,status,updated_at desc);

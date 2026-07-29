@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://djnastor.github.io/Lukulu-Afro-News/sitemap.xml
