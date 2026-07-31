@@ -10,6 +10,8 @@ A premium, mobile-first Afro House news platform built with React and Vite.
 - Local demo auth and submission tracking prepared for Firebase / Google Cloud Identity Platform or Supabase Auth
 - Editorial Studio role gate and feed/submission review scaffolding
 - SEO metadata helpers, JSON-LD, sitemap and robots.txt
+- AI Intelligence Desk scaffolding for approved web, RSS, YouTube, social and press-release sources
+- Subtle newspaper texture layered into the premium dark visual system
 - Database schema draft and Google Cloud setup documentation
 
 ## Development
