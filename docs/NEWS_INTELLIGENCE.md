@@ -34,3 +34,11 @@ Social content should come from official APIs, embeds, public creator announceme
 7. Save as editorial draft.
 8. Require editor review.
 9. Publish only with attribution and policy checks.
+
+
+## Live feed implementation
+- `config/news-sources.json` is the allowlist of approved feeds.
+- `scripts/fetch-news.mjs` downloads RSS metadata, strips HTML, scores relevance, detects duplicate headlines and writes `public/data/live-news.json`.
+- `.github/workflows/refresh-news.yml` refreshes every six hours and republishes GitHub Pages.
+- The initial live source is EARMILK's publisher-provided Afro House search RSS feed.
+- Google News RSS is not used because its displayed terms restrict use to personal, non-commercial feed readers.

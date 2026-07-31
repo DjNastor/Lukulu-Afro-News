@@ -1,0 +1,12 @@
+[
+  {
+    "id": "earmilk-afro-house",
+    "name": "EARMILK",
+    "type": "rss",
+    "url": "https://earmilk.com/?s=afro%20house&feed=rss2",
+    "enabled": true,
+    "trusted": false,
+    "homepage": "https://earmilk.com/",
+    "rights": "Publisher-provided RSS metadata; headline, excerpt and link only"
+  }
+]
